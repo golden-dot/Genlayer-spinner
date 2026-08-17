@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>GenLayer Portal Official Animated Spinner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --kinetic-cobalt: #110FFF;
+      --cobalt-glow:   #3b38ff;
+      --carbon-void:    #070707;
+      --carbon-card:    #111111;
+      --ceramic-node:   #F5F5F5;
+      --asphalt:        #606060;
+      --chassis:        #CACACA;
+      --photon:         #FFFFFF;
+      --success:        #00FF66;
+
+      --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-display);
+      background: var(--ceramic-node);
+      color: var(--carbon-void);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: var(--photon);
+      border-bottom: 1px solid rgba(7,7,7,0.07);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--carbon-void);
+    }
+
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      background: rgba(17, 15, 255, 0.08);
+      color: var(--kinetic-cobalt);
+      font-weight: 600;
+    }
+
+    /* ── Main Container ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 100px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 70px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--kinetic-cobalt);
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 4.8vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      color: var(--carbon-void);
+      max-width: 780px;
+    }
+
+    .hero h1 span {
+      color: var(--kinetic-cobalt);
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--asphalt);
+      max-width: 640px;
+    }
+
+    /* ── Section Title ── */
+    .sec-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .sec-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--asphalt);
+    }
+
+    .sec-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--carbon-void);
+    }
+
+    /* ── Primary Spinner Card Grid (3 Variations) ── */
+    .spinner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .spinner-card {
+      background: var(--photon);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(7,7,7,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.02);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .spinner-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(17,15,255,0.06);
+    }
+
+    .spinner-stage {
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: var(--photon);
+    }
+
+    .spinner-stage.dark {
+      background: var(--carbon-void);
+    }
+
+    .spinner-stage.ceramic {
+      background: #EAEAEA;
+    }
+
+    .badge-bg {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--asphalt);
+      background: rgba(0,0,0,0.04);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .dark .badge-bg {
+      color: #999;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .spinner-info {
+      padding: 24px 28px 28px 28px;
+      border-top: 1px solid rgba(7,7,7,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--photon);
+    }
+
+    .spinner-name {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--carbon-void);
+    }
+
+    .spinner-desc {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--asphalt);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SPINNER 1: The Iconic GenLayer Orbital
+       Exact GenLayer official logo mark in center + high-speed Kinetic Cobalt stream
+    ══════════════════════════════════════════════════════════ */
+    .gl-spinner-orbital {
+      width: 72px;
+      height: 72px;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gl-orbital-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes gl-orbit-spin {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes gl-mark-pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(0.92); opacity: 0.75; }
+    }
+
+    .gl-orbit-sweep {
+      transform-origin: 50% 50%;
+      animation: gl-orbit-spin 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .gl-logo-core {
+      transform-origin: 50% 50%;
+      animation: gl-mark-pulse 1.6s ease-in-out infinite;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SPINNER 2: The Autonomous Shard Assembler
+       The 3 official polygons of the GenLayer mark dynamically breathe & cycle
+    ══════════════════════════════════════════════════════════ */
+    .gl-spinner-shards {
+      width: 68px;
+      height: 68px;
+    }
+
+    @keyframes gl-left-shard {
+      0%, 100% { transform: translate(0, 0); fill: #110FFF; }
+      50%       { transform: translate(-3px, -2px) scale(0.96); fill: #3533FF; }
+    }
+
+    @keyframes gl-right-shard {
+      0%, 100% { transform: translate(0, 0); fill: #110FFF; }
+      50%       { transform: translate(3px, -2px) scale(0.96); fill: #3533FF; }
+    }
+
+    @keyframes gl-center-core {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.18); opacity: 0.6; fill: #110FFF; }
+    }
+
+    .gl-shard-left {
+      transform-origin: 44px 32px;
+      animation: gl-left-shard 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+
+    .gl-shard-right {
+      transform-origin: 53px 32px;
+      animation: gl-right-shard 1.4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+
+    .gl-shard-center {
+      transform-origin: 48.64px 55px;
+      animation: gl-center-core 1.4s ease-in-out infinite;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       SPINNER 3: Full-Spectrum Consensus Loop
+       Dual concentric acceleration rings with glowing GenLayer Mark
+    ══════════════════════════════════════════════════════════ */
+    .gl-spinner-consensus {
+      width: 76px;
+      height: 76px;
+      position: relative;
+    }
+
+    @keyframes gl-spin-cw {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes gl-spin-ccw {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .gl-ring-outer {
+      transform-origin: 50% 50%;
+      animation: gl-spin-cw 1.3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .gl-ring-inner {
+      transform-origin: 50% 50%;
+      animation: gl-spin-ccw 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    /* ── Scale Showcase ── */
+    .scale-board {
+      background: var(--photon);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(7,7,7,0.08);
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 32px;
+    }
+
+    .scale-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .scale-caption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--asphalt);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Live Portal Context Mocks ── */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .portal-mock {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--carbon-void);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mock-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: #888;
+    }
+
+    .mock-body {
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      text-align: center;
+    }
+
+    .mock-title {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #f5f5f5;
+    }
+
+    .mock-sub {
+      font-size: 12px;
+      color: #777;
+      max-width: 260px;
+      line-height: 1.4;
+    }
+
+    /* ── Code / Copy Section ── */
+    .code-box {
+      background: var(--carbon-void);
+      color: #f5f5f5;
+      padding: 28px;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.7;
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .code-comment { color: #666; }
+    .code-tag { color: #110FFF; }
+    .code-attr { color: #00FF66; }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid rgba(7,7,7,0.07);
+      padding: 36px 48px;
+      background: var(--photon);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--asphalt);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="#" class="header-brand">
+      <!-- Official GenLayer Logo Mark -->
+      <svg width="28" height="26" viewBox="0 0 97.76 91.93" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#070707"/>
+        <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#070707"/>
+        <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#110FFF"/>
+      </svg>
+      <span style="font-weight:700; letter-spacing:-0.03em; font-size:16px;">GenLayer</span>
+    </a>
+    <span class="header-tag">Official Identity Spinner</span>
+  </header>
+
+  <div class="container">
+
+    <!-- Hero -->
+    <section class="hero">
+      <p class="hero-eyebrow">Portal Loading Component</p>
+      <h1>The animated spinner with authentic <span>GenLayer Identity</span>.</h1>
+      <p>Built directly with the exact vector geometry of the official GenLayer mark, Kinetic Cobalt (<code>#110FFF</code>), and precision easing curves calibrated for machine speed.</p>
+    </section>
+
+    <!-- Section 1: The Three Spinner Concepts -->
+    <section>
+      <div class="sec-header">
+        <p class="sec-tag">01 · Master Variations</p>
+        <h2 class="sec-title">Three expressions of GenLayer motion</h2>
+      </div>
+
+      <div class="spinner-grid">
+
+        <!-- VARIANT 1: The Orbital Portal Spinner (Recommended for general loading) -->
+        <div class="spinner-card">
+          <div class="spinner-stage">
+            <!-- Orbital Spinner Container -->
+            <div class="gl-spinner-orbital">
+              <svg class="gl-orbital-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Track -->
+                <circle cx="50" cy="50" r="41" stroke="#070707" stroke-opacity="0.08" stroke-width="3"/>
+                <!-- Spinning Kinetic Arc -->
+                <g class="gl-orbit-sweep">
+                  <circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="140 120" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="9" r="2.5" fill="#110FFF"/>
+                </g>
+                <!-- Authentic GenLayer Logo in center -->
+                <g class="gl-logo-core">
+                  <g transform="translate(50, 50) scale(0.38) translate(-48.88, -45.96)">
+                    <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                    <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+                    <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#070707"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="badge-bg">Light / Photon</span>
+          </div>
+          <div class="spinner-info">
+            <h3 class="spinner-name">1. Kinetic Orbital (Standard)</h3>
+            <p class="spinner-desc">The official GenLayer mark anchored at the core, surrounded by an accelerating Kinetic Cobalt orbital stream. Clean, iconic, and immediately readable.</p>
+          </div>
+        </div>
+
+        <!-- VARIANT 2: Dark Mode Carbon Void Variant -->
+        <div class="spinner-card">
+          <div class="spinner-stage dark">
+            <div class="gl-spinner-orbital">
+              <svg class="gl-orbital-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Track in white 8% -->
+                <circle cx="50" cy="50" r="41" stroke="#ffffff" stroke-opacity="0.08" stroke-width="3"/>
+                <!-- Cobalt Glow Arc -->
+                <g class="gl-orbit-sweep">
+                  <circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="140 120" transform="rotate(-90 50 50)"/>
+                  <circle cx="50" cy="9" r="3" fill="#110FFF"/>
+                </g>
+                <!-- White & Cobalt Mark on Dark -->
+                <g class="gl-logo-core">
+                  <g transform="translate(50, 50) scale(0.38) translate(-48.88, -45.96)">
+                    <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#ffffff"/>
+                    <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#ffffff"/>
+                    <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#110FFF"/>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="badge-bg">Carbon Void #070707</span>
+          </div>
+          <div class="spinner-info">
+            <h3 class="spinner-name">2. Carbon Void (Dark Mode)</h3>
+            <p class="spinner-desc">High-contrast inversion with brilliant Photon white wings and a glowing Kinetic Cobalt diamond core for Portal modals and dark themes.</p>
+          </div>
+        </div>
+
+        <!-- VARIANT 3: The Shard Consensus Assembler -->
+        <div class="spinner-card">
+          <div class="spinner-stage ceramic">
+            <div class="gl-spinner-shards">
+              <svg width="100%" height="100%" viewBox="0 0 97.76 91.93" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Left shard animated -->
+                <polygon class="gl-shard-left" points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                <!-- Right shard animated -->
+                <polygon class="gl-shard-right" points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+                <!-- Center diamond animated -->
+                <polygon class="gl-shard-center" points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#070707"/>
+              </svg>
+            </div>
+            <span class="badge-bg">Ceramic Node #F5F5F5</span>
+          </div>
+          <div class="spinner-info">
+            <h3 class="spinner-name">3. Consensus Shard Pulse</h3>
+            <p class="spinner-desc">A pure vector mark animation where the three constituent shards of the GenLayer logo dynamically expand and converge to symbolize AI consensus.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Section 2: Scale Showcase -->
+    <section>
+      <div class="sec-header">
+        <p class="sec-tag">02 · Scalability</p>
+        <h2 class="sec-title">Pixel-sharp from 16px to 96px</h2>
+      </div>
+
+      <div class="scale-board">
+        <!-- 16px -->
+        <div class="scale-unit">
+          <div style="width:16px; height:16px;">
+            <svg viewBox="0 0 100 100" fill="none" style="width:100%; height:100%;">
+              <g class="gl-orbit-sweep"><circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="8" stroke-dasharray="140 120" stroke-linecap="round"/></g>
+            </svg>
+          </div>
+          <span class="scale-caption">16px (Buttons)</span>
+        </div>
+
+        <!-- 24px -->
+        <div class="scale-unit">
+          <div style="width:24px; height:24px;">
+            <svg viewBox="0 0 100 100" fill="none" style="width:100%; height:100%;">
+              <circle cx="50" cy="50" r="41" stroke="#070707" stroke-opacity="0.08" stroke-width="5"/>
+              <g class="gl-orbit-sweep"><circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="6" stroke-dasharray="140 120" stroke-linecap="round"/></g>
+              <g transform="translate(50, 50) scale(0.35) translate(-48.88, -45.96)">
+                <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+              </g>
+            </svg>
+          </div>
+          <span class="scale-caption">24px (Inputs/Tabs)</span>
+        </div>
+
+        <!-- 40px -->
+        <div class="scale-unit">
+          <div style="width:40px; height:40px;">
+            <svg viewBox="0 0 100 100" fill="none" style="width:100%; height:100%;">
+              <circle cx="50" cy="50" r="41" stroke="#070707" stroke-opacity="0.08" stroke-width="4"/>
+              <g class="gl-orbit-sweep"><circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="4.5" stroke-dasharray="140 120" stroke-linecap="round"/></g>
+              <g class="gl-logo-core" transform="translate(50, 50) scale(0.38) translate(-48.88, -45.96)">
+                <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+                <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#070707"/>
+              </g>
+            </svg>
+          </div>
+          <span class="scale-caption">40px (Cards)</span>
+        </div>
+
+        <!-- 64px -->
+        <div class="scale-unit">
+          <div style="width:64px; height:64px;">
+            <svg viewBox="0 0 100 100" fill="none" style="width:100%; height:100%;">
+              <circle cx="50" cy="50" r="41" stroke="#070707" stroke-opacity="0.08" stroke-width="3"/>
+              <g class="gl-orbit-sweep"><circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="3.5" stroke-dasharray="140 120" stroke-linecap="round"/></g>
+              <g class="gl-logo-core" transform="translate(50, 50) scale(0.38) translate(-48.88, -45.96)">
+                <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+                <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#070707"/>
+              </g>
+            </svg>
+          </div>
+          <span class="scale-caption">64px (Modals)</span>
+        </div>
+
+        <!-- 96px -->
+        <div class="scale-unit">
+          <div style="width:96px; height:96px;">
+            <svg viewBox="0 0 100 100" fill="none" style="width:100%; height:100%;">
+              <circle cx="50" cy="50" r="41" stroke="#070707" stroke-opacity="0.08" stroke-width="3"/>
+              <g class="gl-orbit-sweep"><circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="3.5" stroke-dasharray="140 120" stroke-linecap="round"/></g>
+              <g class="gl-logo-core" transform="translate(50, 50) scale(0.4) translate(-48.88, -45.96)">
+                <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+                <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#070707"/>
+              </g>
+            </svg>
+          </div>
+          <span class="scale-caption">96px (Page Loader)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: In-Situ Portal Contexts -->
+    <section>
+      <div class="sec-header">
+        <p class="sec-tag">03 · Portal Experience</p>
+        <h2 class="sec-title">In-context loading states</h2>
+      </div>
+
+      <div class="mockup-grid">
+        <!-- Mock 1: Route Loading -->
+        <div class="portal-mock">
+          <div class="mock-header">
+            <span>PORTAL // AUTH</span>
+            <span>CONNECTING</span>
+          </div>
+          <div class="mock-body">
+            <div style="width:56px; height:56px;">
+              <svg viewBox="0 0 100 100" fill="none" style="width:100%; height:100%;">
+                <circle cx="50" cy="50" r="41" stroke="#ffffff" stroke-opacity="0.08" stroke-width="3"/>
+                <g class="gl-orbit-sweep"><circle cx="50" cy="50" r="41" stroke="#110FFF" stroke-width="3.5" stroke-dasharray="140 120" stroke-linecap="round"/></g>
+                <g class="gl-logo-core" transform="translate(50, 50) scale(0.38) translate(-48.88, -45.96)">
+                  <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#ffffff"/>
+                  <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#ffffff"/>
+                  <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#110FFF"/>
+                </g>
+              </svg>
+            </div>
+            <span class="mock-title">Initializing Session</span>
+            <span class="mock-sub">Connecting to GenLayer Adjudication Network…</span>
+          </div>
+        </div>
+
+        <!-- Mock 2: Intelligent Contract Execution -->
+        <div class="portal-mock">
+          <div class="mock-header">
+            <span>CONSENSUS // EXEC</span>
+            <span>VALIDATING</span>
+          </div>
+          <div class="mock-body">
+            <div style="width:56px; height:56px;">
+              <svg viewBox="0 0 97.76 91.93" fill="none" style="width:100%; height:100%;">
+                <polygon class="gl-shard-left" points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#110FFF"/>
+                <polygon class="gl-shard-right" points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#110FFF"/>
+                <polygon class="gl-shard-center" points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#00FF66"/>
+              </svg>
+            </div>
+            <span class="mock-title">LLM Validator Consensus</span>
+            <span class="mock-sub">Aggregating non-deterministic outputs across validator pool…</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Implementation Code -->
+    <section>
+      <div class="sec-header">
+        <p class="sec-tag">04 · Code Delivery</p>
+        <h2 class="sec-title">Ready-to-use SVG & CSS snippets</h2>
+      </div>
+
+      <pre class="code-box"><code><span class="code-comment">&lt;!-- Drop-in SVG with official GenLayer Vector Geometry --&gt;</span>
+&lt;<span class="code-tag">svg</span> <span class="code-attr">viewBox</span>="0 0 100 100" <span class="code-attr">width</span>="48" <span class="code-attr">height</span>="48" <span class="code-attr">role</span>="img" <span class="code-attr">aria-label</span>="Loading GenLayer"&gt;
+  &lt;<span class="code-tag">circle</span> <span class="code-attr">cx</span>="50" <span class="code-attr">cy</span>="50" <span class="code-attr">r</span>="41" <span class="code-attr">stroke</span>="#070707" <span class="code-attr">stroke-opacity</span>="0.08" <span class="code-attr">stroke-width</span>="3"/&gt;
+  &lt;<span class="code-tag">g</span> <span class="code-attr">class</span>="gl-orbit-sweep"&gt;
+    &lt;<span class="code-tag">circle</span> <span class="code-attr">cx</span>="50" <span class="code-attr">cy</span>="50" <span class="code-attr">r</span>="41" <span class="code-attr">stroke</span>="#110FFF" <span class="code-attr">stroke-width</span>="3.5" <span class="code-attr">stroke-linecap</span>="round" <span class="code-attr">stroke-dasharray</span>="140 120"/&gt;
+  &lt;/<span class="code-tag">g</span>&gt;
+  &lt;<span class="code-tag">g</span> <span class="code-attr">class</span>="gl-logo-core" <span class="code-attr">transform</span>="translate(50, 50) scale(0.38) translate(-48.88, -45.96)"&gt;
+    &lt;<span class="code-tag">polygon</span> <span class="code-attr">points</span>="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" <span class="code-attr">fill</span>="#110FFF"/&gt;
+    &lt;<span class="code-tag">polygon</span> <span class="code-attr">points</span>="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" <span class="code-attr">fill</span>="#110FFF"/&gt;
+    &lt;<span class="code-tag">polygon</span> <span class="code-attr">points</span>="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" <span class="code-attr">fill</span>="#070707"/&gt;
+  &lt;/<span class="code-tag">g</span>&gt;
+&lt;/<span class="code-tag">svg</span>&gt;</code></pre>
+    </section>
+
+  </div>
+
+  <footer class="footer">
+    <span>© 2026 GenLayer Community</span>
+    <span>Portal Loading Spinner Submission</span>
+  </footer>
+
+</body>
+</html>

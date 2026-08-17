@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Loading GenLayer">
+  <title>GenLayer Loading Spinner (Dark Mode)</title>
+  <defs>
+    <linearGradient id="gl-orbit-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#110FFF" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#110FFF" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#110FFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    @keyframes gl-spin-track {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes gl-pulse-core {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(0.92); opacity: 0.8; }
+    }
+    .gl-orbit {
+      transform-origin: 50px 50px;
+      animation: gl-spin-track 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .gl-mark-center {
+      transform-origin: 50px 50px;
+      animation: gl-pulse-core 1.6s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gl-orbit, .gl-mark-center { animation: none; }
+    }
+  </style>
+
+  <!-- Background Track Ring (Subtle on dark) -->
+  <circle cx="50" cy="50" r="41" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="3"/>
+
+  <!-- Kinetic Cobalt Orbital Sweep -->
+  <g class="gl-orbit">
+    <circle cx="50" cy="50" r="41" fill="none" stroke="url(#gl-orbit-grad-dark)" stroke-width="3.5"
+            stroke-linecap="round" stroke-dasharray="140 120" transform="rotate(-90 50 50)"/>
+    <circle cx="50" cy="9" r="2.5" fill="#110FFF"/>
+  </g>
+
+  <!-- Official GenLayer Logo Mark (High contrast white wings + cobalt diamond) -->
+  <g class="gl-mark-center" transform="translate(50, 50) scale(0.38) translate(-48.88, -45.96)">
+    <!-- Left Wing Shard -->
+    <polygon points="44.26 32.35 27.72 67.12 43.29 74.9 0 91.93 44.26 0 44.26 32.35" fill="#FFFFFF"/>
+    <!-- Right Wing Shard -->
+    <polygon points="53.5 32.35 70.04 67.12 54.47 74.9 97.76 91.93 53.5 0 53.5 32.35" fill="#FFFFFF"/>
+    <!-- Central Diamond Shard -->
+    <polygon points="48.64 43.78 58.33 62.94 48.64 67.69 39.47 62.92 48.64 43.78" fill="#110FFF"/>
+  </g>
+</svg>
